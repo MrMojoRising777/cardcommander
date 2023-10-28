@@ -1,8 +1,8 @@
 <template>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <div class="card-container" @click="flipCard">
-      <div class="card text-dark card-has-bg" :class="{ flipped: isFlipped }" :style="'background-image: url(' + card.picture + ');'">
-        <div class="card-front">
+      <div class="card text-dark card-has-bg" :class="{ flipped: isFlipped }">
+        <div class="card-front" :style="'background-image: url(' + card.picture + ');'">
           <img class="card-img d-none" :src="card.picture" alt="Card Image">
           <div class="card-img-overlay d-flex flex-column">
             <div class="card-body">
@@ -27,8 +27,8 @@
                 <div class="media">
                   <!-- <img class="mr-3 rounded-circle" src="https://assets.codepen.io/460692/internal/avatars/users/default.png?format=auto&version=1688931977&width=80&height=80" alt="Generic placeholder image" style="max-width:50px"> -->
                   <div class="media-body">
-                    <h6 class="my-0 text-dark d-block">{{ card.description }}</h6>
-                    <small>Director of UI/UX</small>
+                    <h6 class="my-0 text-dark d-block">TEXT</h6>
+                    <small>small text</small>
                   </div>
                 </div>
               </div>
@@ -94,6 +94,9 @@
 
 .card .card-front {
   transform: rotateY(0deg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   color: #000;
   opacity: 1;
 }
