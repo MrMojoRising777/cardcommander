@@ -1,3 +1,4 @@
+<!--base template for era cards (EraPicker)-->
 <template>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <router-link :to="'/faction-picker/' + era.id">Choose Era</router-link>

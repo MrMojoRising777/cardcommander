@@ -1,3 +1,4 @@
+<!--display eras to pick from (EraTemplate)-->
 <template>
   <div class="erapicker-container">
     <h2>EraPicker page</h2>

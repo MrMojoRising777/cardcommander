@@ -1,3 +1,4 @@
+<!--display factions(by era.id) to pick from (FactionTemplate)-->
 <template>
   <div>
     <h2>FactionPicker page</h2>

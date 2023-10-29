@@ -1,3 +1,4 @@
+<!--card collection showcase: display all cards; obtained and locked-->
 <template>
   <div>
     <h1>Collection page</h1>

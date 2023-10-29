@@ -1,3 +1,4 @@
+<!--header and navbar-->
 <template>
   <header>
     <i class="bi bi-list" @click="toggleSidebar"></i>

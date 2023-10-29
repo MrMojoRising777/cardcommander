@@ -1,3 +1,4 @@
+<!--home page w/ News, Friends, Shop, ..-->
 <template>
   <div class="home-container">
     <h1>Home page</h1>

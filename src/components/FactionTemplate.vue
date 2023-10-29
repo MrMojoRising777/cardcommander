@@ -1,3 +1,4 @@
+<!--base template for faction cards (FactionPicker)-->
 <template>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <router-link :to="'/faction-picker/' + faction.id">Choose Faction</router-link>

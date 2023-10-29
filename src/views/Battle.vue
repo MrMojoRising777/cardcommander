@@ -1,3 +1,4 @@
+<!--main battle page w/ stats, battle options, ..-->
 <template>
   <div class="battle-container">
     <h2>Battle page</h2>
