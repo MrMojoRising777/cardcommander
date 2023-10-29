@@ -14,26 +14,27 @@ import FactionTemplate from '../components/FactionTemplate.vue';
 
 export default {
   name: "eraPicker",
-  props: ['eraId'],
   components: {
     FactionTemplate,
   },
   data() {
     return {
       factions: [],
+      eraId: null,
     };
   },
   mounted() {
-    this.fetchFactions();
+    this.eraId = this.$route.params.eraId;
+    this.fetchFactionsByEraId();
   },
   methods: {
-    fetchFactions() {
+    fetchFactionsByEraId() {
       const API_URL = 'http://localhost:8000/';
       axios
-        .get(API_URL + 'eras')
+        .get(API_URL + `factions/${this.eraId}`)
         .then(response => {
           this.factions = response.data;
-          console.log(this.factions);
+          console.log("FACTIONS",this.factions);
         })
         .catch(error => {
           console.error(error);
@@ -42,3 +43,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.erapicker-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://wallpapers.com/images/hd/shogun-1920-x-1080-wallpaper-qrprnm2hctkbgezt.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #FFFFFF;
+}
+</style>

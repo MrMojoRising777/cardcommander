@@ -27,10 +27,9 @@ const routes = [
     component: () => import('../views/EraPicker.vue')
   },
   {
-    path: '/faction-picker/:era_id',
+    path: '/factions/:eraId',
     name: "factionPicker",
-    component: () => import('../views/FactionPicker.vue'),
-    props: true
+    component: () => import('../views/FactionPicker.vue')
   },
 ]
 

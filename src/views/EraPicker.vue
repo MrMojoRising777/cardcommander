@@ -6,6 +6,7 @@
         v-for="(era, index) in this.eras"
         :key="index"
         :era="era"
+        @click="selectEra(era)"
         class="test"
       >
       </era-template>
@@ -37,11 +38,14 @@ export default {
         .get(API_URL + 'eras')
         .then(response => {
           this.eras = response.data;
-          console.log(this.eras);
+          console.log("ERAS",this.eras);
         })
         .catch(error => {
           console.error(error);
         });
+    },
+    selectEra(era) {
+      this.$router.push({ name: 'factionPicker', params: { eraId: era.id } });
     },
   },
 };
