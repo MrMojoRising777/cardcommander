@@ -26,11 +26,18 @@ const routes = [
     name: "eraPicker",
     component: () => import('../views/EraPicker.vue')
   },
+  {
+    path: '/faction-picker/:era_id',
+    name: "factionPicker",
+    component: () => import('../views/FactionPicker.vue'),
+    props: true
+  },
 ]
 
 // ROUTER
 const router = createRouter({
   history: createWebHistory(),
+  mode: 'history',
   routes,
 })
 
