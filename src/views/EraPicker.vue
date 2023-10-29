@@ -30,8 +30,8 @@ export default {
       axios
         .get(API_URL + 'eras')
         .then(response => {
-          this.cards = response.data;
-          console.log(this.cards);
+          this.eras = response.data;
+          console.log(this.eras);
         })
         .catch(error => {
           console.error(error);
