@@ -14,6 +14,18 @@ const routes = [
     name: "cardCollection",
     component: () => import('../views/Collection.vue')
   },
+  // BATTLE
+  {
+    path: "/battle",
+    name: "cardBattle",
+    component: () => import('../views/Battle.vue')
+  },
+  // ERA PICKER
+  {
+    path: "/erapicker",
+    name: "eraPicker",
+    component: () => import('../views/EraPicker.vue')
+  },
 ]
 
 // ROUTER
