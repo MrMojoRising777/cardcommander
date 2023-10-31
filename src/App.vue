@@ -1,6 +1,6 @@
 <!--main app-->
 <template>
-  <Header/>
+  <NavBar/>
     <router-view v-slot="{ Component }">
       <keep-alive>
         <component :is="Component" />
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
-    Header
+    NavBar
   }
 }
 </script>
