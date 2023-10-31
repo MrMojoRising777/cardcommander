@@ -15,6 +15,10 @@ const pinia = createPinia();
 
 const app = createApp(App);
 app.use(pinia);
+<<<<<<< HEAD
 app.use(router);
 
 app.mount("#app");
+=======
+app.use(router);
+>>>>>>> bfa41a9064ae5804644e2efeb769de501fc122f3
