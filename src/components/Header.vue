@@ -5,9 +5,11 @@
     <h1>{{ title }}</h1>
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/collection">Cards</a></li>
-        <li><a href="/battle">Battle</a></li>
+        <li><router-link :to="'/'">Home</router-link></li>
+        <li><router-link :to="'/login'">Login</router-link></li>
+        <li><router-link :to="'/register'">Register</router-link></li>
+        <li><router-link :to="'/collection'">Cards</router-link></li>
+        <li><router-link :to="'/battle'">Battle</router-link></li>
       </ul>
     </nav>
   </header>
@@ -18,7 +20,7 @@ export default {
   name: 'HeaderComponent',
   data() {
     return {
-      title: "My Vue Header",
+      title: "CardCommander",
     };
   },
 };

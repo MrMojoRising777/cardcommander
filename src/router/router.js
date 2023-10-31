@@ -8,6 +8,18 @@ const routes = [
     name: "default",
     component: () => import('../views/Home.vue')
   },
+  // LOGIN
+  {
+    path: "/login",
+    name: "loginForm",
+    component: () => import('../components/LoginForm.vue')
+  },
+  // DEFAULT
+  {
+    path: "/register",
+    name: "registerForm",
+    component: () => import('../components/RegisterForm.vue')
+  },
   // CARD COLLECTION
   {
     path: "/collection",
