@@ -1,20 +1,26 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { onMounted } from 'vue';
+import { useAuthStore } from "../store/auth";
 
-const user = ref();
+const authStore = useAuthStore();
+
 onMounted(async () => {
-  const data = await axios.get('/api/user');
-  user.value = data.data;
-  console.log(user.value);
-})
+  // get user
+  await authStore.getUser();
+});
 </script>
 
 <!--home page w/ News, Friends, Shop, ..-->
 <template>
   <div class="home-container">
     <h1>Home page</h1>
-    <p>{{ user?.name }}</p>
+    <div v-if="authStore.user">
+      <p>Hello</p>
+      <p>{{ authStore.user.name }}</p>
+    </div>
+    <div v-else>
+      <p>Not logged in</p>
+    </div>
   </div>
 </template>
 
