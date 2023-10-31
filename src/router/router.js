@@ -6,7 +6,7 @@ const routes = [
   {
     path: "/",
     name: "default",
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/HomePage.vue')
   },
   // LOGIN
   {
@@ -14,7 +14,7 @@ const routes = [
     name: "loginForm",
     component: () => import('../components/LoginForm.vue')
   },
-  // DEFAULT
+  // REGISTER
   {
     path: "/register",
     name: "registerForm",
