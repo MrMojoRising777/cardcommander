@@ -22,7 +22,7 @@ const routes = [
   },
   // CARD COLLECTION
   {
-    path: "/collection",
+    path: "/card_collections/:userId",
     name: "cardCollection",
     component: () => import('../views/Collection.vue')
   },

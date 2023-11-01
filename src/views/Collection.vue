@@ -3,7 +3,7 @@
   <div>
     <h1>Collection page</h1>
     <div class="row">
-      <card-template v-for="(card, index) in filteredCards" :key="index" :card="card" class="test" />
+      <card-template v-for="(card, index) in this.cards" :key="index" :card="card" />
     </div>
   </div>
 </template>
@@ -20,23 +20,21 @@ export default {
   data() {
     return {
       cards: [],
+      userId: null,
     };
   },
-  computed: {
-    filteredCards() {
-      return this.cards.filter(card => card.obtained === 1);
-    },
-  },
   mounted() {
-    this.fetchCards();
+    this.userId = this.$route.params.userId;
+    this.fetchCollection();
   },
   methods: {
-    fetchCards() {
+    fetchCollection() {
       const API_URL = 'http://localhost:8000/';
       axios
-        .get(API_URL + 'cards')
+        .get(API_URL + `card_collections/${this.userId}`)
         .then(response => {
           this.cards = response.data;
+          console.log("cards",this.cards);
         })
         .catch(error => {
           console.error(error);
@@ -45,9 +43,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.test {
-  margin-left: 10px;
-}
-</style>
