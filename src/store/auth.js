@@ -13,9 +13,18 @@ export const useAuthStore = defineStore("auth", {
       await axios.get("/sanctum/csrf-cookie");
     },
     async getUser() {
-      await this.getToken();
-      const data = await axios.get("api/user");
-      this.authUser = data.data;
+      try {
+        await this.getToken();
+        const data = await axios.get("api/user");
+        this.authUser = data.data;
+        console.log(this.authUser);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          // Error handling for 401 Unauthorized (Not logged in)
+        } else {
+          // Handle other errors
+        }
+      }
     },
     async handleLogin(data) {
       await this.getToken();
