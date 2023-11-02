@@ -1,6 +1,6 @@
 <!--card collection showcase: display all cards; obtained and locked-->
 <template>
-  <div>
+  <div class="collection-container">
     <h1>Collection page</h1>
     <div class="row">
       <card-template v-for="(card, index) in this.cards" :key="index" :card="card" />
@@ -43,3 +43,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.collection-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://www.worldhistory.org/uploads/images/14298.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #FFFFFF;
+}
+</style>
