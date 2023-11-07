@@ -38,10 +38,17 @@ const routes = [
     name: "eraPicker",
     component: () => import('../views/EraPicker.vue')
   },
+  // FACTION PICKER
   {
     path: '/factions/:eraId',
     name: "factionPicker",
     component: () => import('../views/FactionPicker.vue')
+  },
+  // BATTLEFIELD
+  {
+    path: "/battlefield",
+    name: "cardBattleField",
+    component: () => import('../components/BattleField.vue')
   },
 ]
 
