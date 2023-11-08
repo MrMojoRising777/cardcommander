@@ -18,22 +18,50 @@
       </div>
       <div class="divider"></div>
       <div class="player-flanks">
-        <div class="flank left-flank player-flank">
+        <div class="flank left-flank player-flank" @drop="event => drop(event, 'left')" @dragover="allowDrop">
           <!-- Your Left Flank Area for Cards -->
           Left
         </div>
-        <div class="flank center-flank player-flank">
+        <div class="flank center-flank player-flank" @drop="drop(event, 'center')" @dragover.prevent="allowDrop">
           <!-- Your Center Flank Area for Cards -->
           Center
         </div>
-        <div class="flank right-flank player-flank">
+        <div class="flank right-flank player-flank" @drop="drop(event, 'right')" @dragover.prevent="allowDrop">
           <!-- Your Right Flank Area for Cards -->
           Right
         </div>
       </div>
     </div>
+    <TestHand :cards="cards" @card-drag-start="cardDragStart"/>
   </div>
 </template>
+
+<script>
+import TestHand from '../components/TestHand.vue';
+
+export default {
+  components: {
+    TestHand,
+  },
+  methods: {
+    allowDrop(ev) {
+      ev.preventDefault();
+    },
+    cardDragStart(data) {
+      // Handle the start of a card drag from TestHand
+      // You can update the state accordingly
+      console.log('Card dragged:', data.card, 'from index:', data.index);
+    },
+    drop(ev, flank) {
+      ev.preventDefault();
+      var cardId = ev.dataTransfer.getData("text");
+      // Handle the drop event, including which flank the card was dropped into
+      console.log('Dropped into flank:', flank);
+      console.log('Card ID:', cardId);
+    },
+  },
+}
+</script>
 
 <style>
 .battlefield-container {
@@ -75,9 +103,3 @@
   justify-content: space-between;
 }
 </style>
-
-<script>
-export default {
-  name: "cardBattleField"
-};
-</script>

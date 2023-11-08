@@ -50,6 +50,12 @@ const routes = [
     name: "cardBattleField",
     component: () => import('../components/BattleField.vue')
   },
+  // test hand
+  {
+    path: "/test",
+    name: "testHand",
+    component: () => import('../components/TestHand.vue')
+  },
 ]
 
 // ROUTER
