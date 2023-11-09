@@ -6,17 +6,20 @@
         <!-- Enemy Left Flank Area for Cards -->
         <div class="flank left-flank enemy-flank" @drop="event => drop(event, 'enemy_leftFlank')" @dragover="allowDrop">
           Enemy left
-          <card-template v-for="(card, index) in enemy_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+          <card-template v-for="(card, index) in enemy_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
         </div>
         <!-- Enemy Center Flank Area for Cards -->
         <div class="flank center-flank enemy-flank" @drop="event => drop(event, 'enemy_centerFlank')" @dragover="allowDrop">
           Enemy center
-          <card-template v-for="(card, index) in enemy_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+          <card-template v-for="(card, index) in enemy_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
         </div>
         <!-- Enemy Right Flank Area for Cards -->
         <div class="flank right-flank enemy-flank" @drop="event => drop(event, 'enemy_rightFlank')" @dragover="allowDrop">
           Enemy right
-          <card-template v-for="(card, index) in enemy_rightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+          <card-template v-for="(card, index) in enemy_rightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
         </div>
       </div>
       <div class="divider"></div>
@@ -24,19 +27,21 @@
         <!-- Left Flank Area for Cards -->
         <div class="flank left-flank player-flank" @drop="event => drop(event, 'player_leftFlank')" @dragover="allowDrop">
           Left
-          <card-template v-for="(card, index) in player_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+          <card-template v-for="(card, index) in player_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
         </div>
         <!-- Center Flank Area for Cards -->
         <div class="flank center-flank player-flank" @drop="event => drop(event, 'player_centerFlank')" @dragover="allowDrop">
           Center
-          <card-template v-for="(card, index) in player_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+          <card-template v-for="(card, index) in player_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
         </div>
         <!-- Right Flank Area for Cards -->
         <div class="flank right-flank player-flank" @drop="event => drop(event, 'player_rightFlank')" @dragover="allowDrop">
           <div class="flank-title">Right</div>
           <div class="card-container">
             <card-template v-for="(card, index) in player_rightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
-            :height="120" :width="80"/>
+            :height="120" :width="60"/>
           </div>
         </div>
       </div>
@@ -50,7 +55,8 @@
       Player Deck
     </div>
     <div class="row">
-      <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"/>
+      <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+      :height="240" :width="120"/>
     </div>
   </div>
 </template>
@@ -98,11 +104,9 @@ export default {
       ev.preventDefault();
       var cardId = parseInt(ev.dataTransfer.getData('text/plain'), 10);
       var cardIndex = this.cards.findIndex(card => card.id === cardId);
-
       if (cardIndex !== -1) {
         // Remove card from main cards array
         const droppedCard = this.cards.splice(cardIndex, 1)[0];
-
         // Ensure that array is defined before pushing card
         if (this[flank]) {
           // Add card to corresponding flank array
