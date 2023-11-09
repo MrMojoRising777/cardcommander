@@ -1,7 +1,7 @@
 <!--base template for cards-->
 <template>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-    <div class="card-container" @click="flipCard">
+    <div class="card-container" @click="flipCard" :style="{ width: `${width}px`, height: `${height}px` }">
       <div class="card text-dark card-has-bg" :class="{ flipped: isFlipped }">
         <div class="card-front" :style="'background-image: url(' + card.picture + ');'">
           <img class="card-img d-none" :src="card.picture" alt="Card Image">
@@ -50,6 +50,8 @@
   export default {
     props: {
       card: Object,
+      height: Number,
+      width: Number,
     },
     data() {
       return {
@@ -66,8 +68,8 @@
 
 <style>
 .card-container {
-  width: 300px;
-  height: 450px;
+  width: 100%; /*width = prop*/
+  height: 100%; /*height = prop*/
   perspective: 1000px;
   cursor: pointer;
   margin: 0 auto;
