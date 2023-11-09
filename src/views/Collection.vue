@@ -3,7 +3,7 @@
   <div class="collection-container">
     <h1>Collection page</h1>
     <div class="row">
-      <card-template v-for="(card, index) in this.cards" :key="index" :card="card" />
+      <card-template v-for="(card, index) in this.cards" :key="index" :card="card" :height="120" :width="300"/>
     </div>
   </div>
 </template>
