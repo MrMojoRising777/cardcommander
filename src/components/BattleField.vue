@@ -54,9 +54,11 @@
     <div class="deck player-deck bottom-right">
       Player Deck
     </div>
-    <div class="row">
-      <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
-      :height="240" :width="120"/>
+    <div class="hand-container" @drop="event => drop(event, 'cards')" @dragover="allowDrop">
+      <div class="row">
+        <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+        :height="240" :width="120"/>
+      </div>
     </div>
   </div>
 </template>
@@ -103,10 +105,14 @@ export default {
     drop(ev, flank) {
       ev.preventDefault();
       var cardId = parseInt(ev.dataTransfer.getData('text/plain'), 10);
+
+      // Check in the main cards array
       var cardIndex = this.cards.findIndex(card => card.id === cardId);
+
       if (cardIndex !== -1) {
         // Remove card from main cards array
         const droppedCard = this.cards.splice(cardIndex, 1)[0];
+
         // Ensure that array is defined before pushing card
         if (this[flank]) {
           // Add card to corresponding flank array
@@ -118,7 +124,35 @@ export default {
           console.error('Flank array not found:', flank);
         }
       } else {
-        console.log('Card not found for ID:', cardId);
+        // Check in all flank arrays
+        const allFlanks = ['enemy_leftFlank', 'enemy_centerFlank', 'enemy_rightFlank', 'player_leftFlank', 'player_centerFlank', 'player_rightFlank'];
+
+        for (const currentFlank of allFlanks) {
+          var cardIndexInFlank = this[currentFlank].findIndex(card => card.id === cardId);
+          if (cardIndexInFlank !== -1) {
+            // Remove card from current flank array
+            const droppedCard = this[currentFlank].splice(cardIndexInFlank, 1)[0];
+
+            // Ensure that array is defined before pushing card
+            if (this[flank]) {
+              // Add card to corresponding flank array
+              this[flank].push(droppedCard);
+
+              console.log('Card dropped into flank:', flank);
+              console.log('Card Data:', droppedCard);
+            } else {
+              console.error('Flank array not found:', flank);
+            }
+
+            // Exit the loop once the card is found and moved
+            break;
+          }
+        }
+
+        // If the card is not found in any array
+        if (cardIndexInFlank === -1) {
+          console.log('Card not found for ID:', cardId);
+        }
       }
     },
   },
@@ -191,5 +225,10 @@ export default {
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+
+.hand-container {
+  background-color: #ff6b6b;
+  min-height: 100px;
 }
 </style>
