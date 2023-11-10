@@ -46,7 +46,7 @@ const routes = [
   },
   // BATTLEFIELD
   {
-    path: "/battlefield",
+    path: "/battlefield/:userId",
     name: "cardBattleField",
     component: () => import('../components/BattleField.vue')
   },

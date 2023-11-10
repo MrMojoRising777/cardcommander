@@ -19,6 +19,7 @@ const authStore = useAuthStore();
         <template v-else>
           <li><router-link :to="'/card_collections/' + authStore.user.id">Cards</router-link></li>
           <li><router-link :to="'/battle'">Battle</router-link></li>
+          <li><router-link :to="'/battlefield/' + authStore.user.id">Battlefield</router-link></li>
           <button @click="authStore.handleLogout">Logout</button>
         </template>
       </ul>

@@ -49,6 +49,7 @@
     <!-- Enemy Deck Area -->
     <div class="deck enemy-deck top-left">
       Enemy Deck
+      <button class="btn btn-danger" @click="getAllArrayValues">Get</button>
     </div>
     <!-- Player Deck Area -->
     <div class="deck player-deck bottom-right">
@@ -72,6 +73,7 @@ export default {
   },
   data() {
     return {
+      userId: null,
       cards: [],
       enemy_leftFlank: [],
       enemy_centerFlank: [],
@@ -85,7 +87,7 @@ export default {
     fetchCollection() {
       const API_URL = 'http://localhost:8000/';
       axios
-        .get(API_URL + `card_collections/1`)
+        .get(API_URL + `battlefield/${this.userId}`)
         .then((response) => {
           this.cards = response.data;
           console.log('cards', this.cards);
@@ -106,7 +108,7 @@ export default {
       ev.preventDefault();
       var cardId = parseInt(ev.dataTransfer.getData('text/plain'), 10);
 
-      // Check in the main cards array
+      // Check in main cards array
       var cardIndex = this.cards.findIndex(card => card.id === cardId);
 
       if (cardIndex !== -1) {
@@ -144,19 +146,29 @@ export default {
               console.error('Flank array not found:', flank);
             }
 
-            // Exit the loop once the card is found and moved
+            // Exit loop once card is found and moved
             break;
           }
         }
 
-        // If the card is not found in any array
+        // If card is not found in any array
         if (cardIndexInFlank === -1) {
           console.log('Card not found for ID:', cardId);
         }
       }
     },
+    getAllArrayValues() {
+      console.log("ENEMY left",this.enemy_leftFlank);
+      console.log("ENEMY center",this.enemy_centerFlank);
+      console.log("ENEMY right",this.enemy_rightFlank);
+
+      console.log("PLAYER left",this.player_leftFlank);
+      console.log("PLAYER center",this.player_centerFlank);
+      console.log("PLAYER right",this.player_rightFlank);
+    },
   },
   mounted() {
+    this.userId = this.$route.params.userId;
     this.fetchCollection();
   },
 }
@@ -226,7 +238,6 @@ export default {
   bottom: 20px;
   right: 20px;
 }
-
 .hand-container {
   background-color: #ff6b6b;
   min-height: 100px;
