@@ -24,9 +24,19 @@ export default {
       eraId: null,
     };
   },
-  mounted() {
-    this.eraId = this.$route.params.eraId;
+  // Update data when the route changes
+  beforeRouteUpdate(to, from, next) {
+    this.eraId = to.params.eraId;
     this.fetchFactionsByEraId();
+    next();
+  },
+  // Update data when entering the route
+  beforeRouteEnter(to, from, next) {
+    const eraId = to.params.eraId;
+    next(vm => {
+      vm.eraId = eraId;
+      vm.fetchFactionsByEraId();
+    });
   },
   methods: {
     fetchFactionsByEraId() {
