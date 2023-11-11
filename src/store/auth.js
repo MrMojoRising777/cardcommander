@@ -32,6 +32,7 @@ export const useAuthStore = defineStore("auth", {
         email: data.email,
         password: data.password
       });
+      await this.getUser();
       this.router.push("/");
     },
     async handleRegister(data) {
