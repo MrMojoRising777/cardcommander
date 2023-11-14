@@ -2,6 +2,12 @@
   <div class="battlefield-container">
     <h2>Battlefield</h2>
     <div class="battlefield">
+      <!-- Enemy General Card Container -->
+      <div class="general-card-container enemy-general-container"  @drop="event => drop(event, 'player_general')" @dragover="allowDrop">
+        Enemy General Card
+        <card-template v-for="(card, index) in enemy_general" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
+      </div>
       <div class="enemy-flanks">
         <!-- Enemy Left Flank Area for Cards -->
         <div class="flank left-flank enemy-flank" @drop="event => drop(event, 'enemy_leftFlank')" @dragover="allowDrop">
@@ -23,6 +29,12 @@
         </div>
       </div>
       <div class="divider"></div>
+      <!-- Player General Card Container -->
+      <div class="general-card-container player-general-container" @drop="event => drop(event, 'player_general')" @dragover="allowDrop">
+        Player General Card
+        <card-template v-for="(card, index) in player_general" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="120" :width="60"/>
+      </div>
       <div class="player-flanks">
         <!-- Left Flank Area for Cards -->
         <div class="flank left-flank player-flank" @drop="event => drop(event, 'player_leftFlank')" @dragover="allowDrop">
@@ -75,9 +87,11 @@ export default {
     return {
       userId: null,
       cards: [],
+      enemy_general: [],
       enemy_leftFlank: [],
       enemy_centerFlank: [],
       enemy_rightFlank: [],
+      player_general: [],
       player_leftFlank: [],
       player_centerFlank: [],
       player_rightFlank: [],
@@ -158,10 +172,12 @@ export default {
       }
     },
     getAllArrayValues() {
+      console.log("ENEMY general",this.enemy_general);
       console.log("ENEMY left",this.enemy_leftFlank);
       console.log("ENEMY center",this.enemy_centerFlank);
       console.log("ENEMY right",this.enemy_rightFlank);
 
+      console.log("PLAYER general",this.player_general);
       console.log("PLAYER left",this.player_leftFlank);
       console.log("PLAYER center",this.player_centerFlank);
       console.log("PLAYER right",this.player_rightFlank);
@@ -241,5 +257,25 @@ export default {
 .hand-container {
   background-color: #ff6b6b;
   min-height: 100px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.general-card-container {
+  width: 240px;
+  height: 120px;
+  border: 1px solid #666;
+  background-color: #f2f2f2;
+  margin: 10px;
+  text-align: center;
+  line-height: 120px;
+}
+.enemy-general-container {
+  order: -1;
+}
+.player-general-container {
+  order: 1;
+  margin-top: 20px;
+  z-index: 2;
 }
 </style>
