@@ -171,16 +171,35 @@ export default {
         }
       }
     },
+    calcAttackDefenceSum(array) {
+      let totalAttack = 0;
+      let totalDefence = 0;
+
+      for (let i = 0; i < array.length; i++) {
+        totalAttack += array[i].attack;
+        totalDefence += array[i].defence;
+      }
+
+      return { totalAttack, totalDefence };
+    },
     getAllArrayValues() {
+      const sum1 = this.calcAttackDefenceSum(this.enemy_leftFlank);
+      const sum2 = this.calcAttackDefenceSum(this.enemy_centerFlank);
+      const sum3 = this.calcAttackDefenceSum(this.enemy_rightFlank);
+
       console.log("ENEMY general",this.enemy_general);
-      console.log("ENEMY left",this.enemy_leftFlank);
-      console.log("ENEMY center",this.enemy_centerFlank);
-      console.log("ENEMY right",this.enemy_rightFlank);
+      console.log("ENEMY left",this.enemy_leftFlank, sum1);
+      console.log("ENEMY center",this.enemy_centerFlank, sum2);
+      console.log("ENEMY right",this.enemy_rightFlank, sum3);
+
+      const sum4 = this.calcAttackDefenceSum(this.player_leftFlank);
+      const sum5 = this.calcAttackDefenceSum(this.player_centerFlank);
+      const sum6 = this.calcAttackDefenceSum(this.player_rightFlank);
 
       console.log("PLAYER general",this.player_general);
-      console.log("PLAYER left",this.player_leftFlank);
-      console.log("PLAYER center",this.player_centerFlank);
-      console.log("PLAYER right",this.player_rightFlank);
+      console.log("PLAYER left",this.player_leftFlank, sum4);
+      console.log("PLAYER center",this.player_centerFlank, sum5);
+      console.log("PLAYER right",this.player_rightFlank, sum6);
     },
   },
   mounted() {
