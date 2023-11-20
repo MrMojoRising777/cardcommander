@@ -104,7 +104,6 @@ export default {
         .get(API_URL + `battlefield/${this.userId}`)
         .then((response) => {
           this.cards = response.data;
-          console.log('cards', this.cards);
         })
         .catch((error) => {
           console.error(error);
@@ -115,7 +114,6 @@ export default {
     },
     cardDragStart(event, card) {
       // Handle start of drag
-      console.log(`Card dragged: ${card.name}, ID: ${card.id}`);
       event.dataTransfer.setData('text/plain', card.id);
     },
     drop(ev, flank) {
@@ -133,9 +131,6 @@ export default {
         if (this[flank]) {
           // Add card to corresponding flank array
           this[flank].push(droppedCard);
-
-          console.log('Card dropped into flank:', flank);
-          console.log('Card Data:', droppedCard);
         } else {
           console.error('Flank array not found:', flank);
         }
@@ -153,9 +148,6 @@ export default {
             if (this[flank]) {
               // Add card to corresponding flank array
               this[flank].push(droppedCard);
-
-              console.log('Card dropped into flank:', flank);
-              console.log('Card Data:', droppedCard);
             } else {
               console.error('Flank array not found:', flank);
             }
@@ -163,11 +155,6 @@ export default {
             // Exit loop once card is found and moved
             break;
           }
-        }
-
-        // If card is not found in any array
-        if (cardIndexInFlank === -1) {
-          console.log('Card not found for ID:', cardId);
         }
       }
     },
@@ -182,24 +169,48 @@ export default {
 
       return { totalAttack, totalDefence };
     },
+    checkHitOrDefend(attacker, defender) {
+      let attack = 0;
+      if (attacker.totalAttack > defender.totalDefence) {
+        // if attack overpowers defence, calc attack received
+        attack += attacker.totalAttack - defender.totalDefence;
+        console.log("HIT", attacker.totalAttack, "VS", defender.totalDefence, " general -", attack);
+      } else {
+        // attack was blocked
+        console.log("BLOCKED", defender.totalDefence, "VS", attacker.totalAttack);
+      }
+    },
     getAllArrayValues() {
-      const sum1 = this.calcAttackDefenceSum(this.enemy_leftFlank);
-      const sum2 = this.calcAttackDefenceSum(this.enemy_centerFlank);
-      const sum3 = this.calcAttackDefenceSum(this.enemy_rightFlank);
+      // enemy = attacker (attacks first)
+      const sum_enemy_left = this.calcAttackDefenceSum(this.enemy_leftFlank);
+      const sum_enemy_center = this.calcAttackDefenceSum(this.enemy_centerFlank);
+      const sum_enemy_right = this.calcAttackDefenceSum(this.enemy_rightFlank);
 
-      console.log("ENEMY general",this.enemy_general);
-      console.log("ENEMY left",this.enemy_leftFlank, sum1);
-      console.log("ENEMY center",this.enemy_centerFlank, sum2);
-      console.log("ENEMY right",this.enemy_rightFlank, sum3);
+      const sum_player_left = this.calcAttackDefenceSum(this.player_leftFlank);
+      const sum_player_center = this.calcAttackDefenceSum(this.player_centerFlank);
+      const sum_player_right = this.calcAttackDefenceSum(this.player_rightFlank);
 
-      const sum4 = this.calcAttackDefenceSum(this.player_leftFlank);
-      const sum5 = this.calcAttackDefenceSum(this.player_centerFlank);
-      const sum6 = this.calcAttackDefenceSum(this.player_rightFlank);
+      console.log("ENEMY general", this.enemy_general);
+      // check enemy left
+      console.log("ENEMY left", this.enemy_leftFlank, sum_enemy_left);
+      this.checkHitOrDefend(sum_enemy_left, sum_player_left);
+      // check enemy center
+      console.log("ENEMY center", this.enemy_centerFlank, sum_enemy_center);
+      this.checkHitOrDefend(sum_enemy_center, sum_player_center);
+      // check enemy right
+      console.log("ENEMY right", this.enemy_rightFlank, sum_enemy_right);
+      this.checkHitOrDefend(sum_enemy_right, sum_player_right);
 
-      console.log("PLAYER general",this.player_general);
-      console.log("PLAYER left",this.player_leftFlank, sum4);
-      console.log("PLAYER center",this.player_centerFlank, sum5);
-      console.log("PLAYER right",this.player_rightFlank, sum6);
+      console.log("PLAYER general", this.player_general);
+      // check player left
+      console.log("PLAYER left", this.player_leftFlank, sum_player_left);
+      this.checkHitOrDefend(sum_player_left, sum_enemy_left);
+      // check player center
+      console.log("PLAYER center", this.player_centerFlank, sum_player_center);
+      this.checkHitOrDefend(sum_player_center, sum_enemy_center);
+      // check player right
+      console.log("PLAYER right", this.player_rightFlank, sum_player_right);
+      this.checkHitOrDefend(sum_player_right, sum_enemy_right);
     },
   },
   mounted() {
