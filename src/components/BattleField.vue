@@ -1,76 +1,76 @@
 <template>
   <div class="battlefield-container">
     <h2>Battlefield</h2>
-    <div class="battlefield">
+    <div class="battlefield" v-if="!gameOver">
       <!-- Enemy General Card Container -->
-      <div class="general-card-container enemy-general-container"  @drop="event => drop(event, 'player_general')" @dragover="allowDrop">
+      <div class="general-card-container enemy-general-container"  @drop="event => drop(event, 'enemyGeneral')" @dragover="allowDrop">
         Enemy General Card
-        <card-template v-for="(card, index) in enemy_general" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+        <card-template v-for="(card, index) in enemyGeneral" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
       </div>
       <div class="enemy-flanks">
         <!-- Enemy Left Flank Area for Cards -->
-        <div class="flank left-flank enemy-flank" @drop="event => drop(event, 'enemy_leftFlank')" @dragover="allowDrop">
+        <div class="flank left-flank enemy-flank" @drop="event => drop(event, 'enemyLeftFlank')" @dragover="allowDrop">
           Enemy left
-          <card-template v-for="(card, index) in enemy_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          <card-template v-for="(card, index) in enemyLeftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
         </div>
         <!-- Enemy Center Flank Area for Cards -->
-        <div class="flank center-flank enemy-flank" @drop="event => drop(event, 'enemy_centerFlank')" @dragover="allowDrop">
+        <div class="flank center-flank enemy-flank" @drop="event => drop(event, 'enemyCenterFlank')" @dragover="allowDrop">
           Enemy center
-          <card-template v-for="(card, index) in enemy_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          <card-template v-for="(card, index) in enemyCenterFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
         </div>
         <!-- Enemy Right Flank Area for Cards -->
-        <div class="flank right-flank enemy-flank" @drop="event => drop(event, 'enemy_rightFlank')" @dragover="allowDrop">
+        <div class="flank right-flank enemy-flank" @drop="event => drop(event, 'enemyRightFlank')" @dragover="allowDrop">
           Enemy right
-          <card-template v-for="(card, index) in enemy_rightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          <card-template v-for="(card, index) in enemyRightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
         </div>
       </div>
       <div class="divider"></div>
       <!-- Player General Card Container -->
-      <div class="general-card-container player-general-container" @drop="event => drop(event, 'player_general')" @dragover="allowDrop">
+      <div class="general-card-container player-general-container" @drop="event => drop(event, 'playerGeneral')" @dragover="allowDrop">
         Player General Card
-        <card-template v-for="(card, index) in player_general" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+        <card-template v-for="(card, index) in playerGeneral" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
       </div>
       <div class="player-flanks">
         <!-- Left Flank Area for Cards -->
-        <div class="flank left-flank player-flank" @drop="event => drop(event, 'player_leftFlank')" @dragover="allowDrop">
+        <div class="flank left-flank player-flank" @drop="event => drop(event, 'playerLeftFlank')" @dragover="allowDrop">
           Left
-          <card-template v-for="(card, index) in player_leftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          <card-template v-for="(card, index) in playerLeftFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
         </div>
         <!-- Center Flank Area for Cards -->
-        <div class="flank center-flank player-flank" @drop="event => drop(event, 'player_centerFlank')" @dragover="allowDrop">
+        <div class="flank center-flank player-flank" @drop="event => drop(event, 'playerCenterFlank')" @dragover="allowDrop">
           Center
-          <card-template v-for="(card, index) in player_centerFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          <card-template v-for="(card, index) in playerCenterFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
           :height="120" :width="60"/>
         </div>
         <!-- Right Flank Area for Cards -->
-        <div class="flank right-flank player-flank" @drop="event => drop(event, 'player_rightFlank')" @dragover="allowDrop">
+        <div class="flank right-flank player-flank" @drop="event => drop(event, 'playerRightFlank')" @dragover="allowDrop">
           <div class="flank-title">Right</div>
           <div class="card-container">
-            <card-template v-for="(card, index) in player_rightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+            <card-template v-for="(card, index) in playerRightFlank" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
             :height="120" :width="60"/>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Enemy Deck Area -->
-    <div class="deck enemy-deck top-left">
-      Enemy Deck
-      <button class="btn btn-danger" @click="getAllArrayValues">Get</button>
-    </div>
-    <!-- Player Deck Area -->
-    <div class="deck player-deck bottom-right">
-      Player Deck
-    </div>
-    <div class="hand-container" @drop="event => drop(event, 'cards')" @dragover="allowDrop">
-      <div class="row">
-        <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
-        :height="240" :width="120"/>
+      <!-- Enemy Deck Area -->
+      <div class="deck enemy-deck top-left">
+        Enemy Deck
+        <button class="btn btn-danger" @click="endTurn">END TURN</button>
+      </div>
+      <!-- Player Deck Area -->
+      <div class="deck player-deck bottom-right">
+        Player Deck
+      </div>
+      <div class="hand-container" @drop="event => drop(event, 'cards')" @dragover="allowDrop">
+        <div class="row">
+          <card-template v-for="(card, index) in cards" :key="index" :card="card" draggable="true" @dragstart="cardDragStart($event, card)"
+          :height="240" :width="120"/>
+        </div>
       </div>
     </div>
   </div>
@@ -87,14 +87,16 @@ export default {
     return {
       userId: null,
       cards: [],
-      enemy_general: [],
-      enemy_leftFlank: [],
-      enemy_centerFlank: [],
-      enemy_rightFlank: [],
-      player_general: [],
-      player_leftFlank: [],
-      player_centerFlank: [],
-      player_rightFlank: [],
+      enemyGeneral: [],
+      enemyLeftFlank: [],
+      enemyCenterFlank: [],
+      enemyRightFlank: [],
+      playerGeneral: [],
+      playerLeftFlank: [],
+      playerCenterFlank: [],
+      playerRightFlank: [],
+      gameOver: false,
+      turnCounter: 0
     };
   },
   methods: {
@@ -136,7 +138,7 @@ export default {
         }
       } else {
         // Check in all flank arrays
-        const allFlanks = ['enemy_leftFlank', 'enemy_centerFlank', 'enemy_rightFlank', 'player_leftFlank', 'player_centerFlank', 'player_rightFlank'];
+        const allFlanks = ['enemyLeftFlank', 'enemyCenterFlank', 'enemyRightFlank', 'playerLeftFlank', 'playerCenterFlank', 'playerRightFlank'];
 
         for (const currentFlank of allFlanks) {
           var cardIndexInFlank = this[currentFlank].findIndex(card => card.id === cardId);
@@ -158,60 +160,96 @@ export default {
         }
       }
     },
-    calcAttackDefenceSum(array) {
+    calcFlank(array) {
       let totalAttack = 0;
       let totalDefence = 0;
+      let name = "";
 
       for (let i = 0; i < array.length; i++) {
         totalAttack += array[i].attack;
         totalDefence += array[i].defence;
+        name = array[i].name;
       }
 
-      return { totalAttack, totalDefence };
+      return { totalAttack, totalDefence, name };
     },
-    checkHitOrDefend(attacker, defender) {
-      let attack = 0;
-      if (attacker.totalAttack > defender.totalDefence) {
+    checkHitOrBlock(attacker, defender) {
+      return attacker.totalAttack > defender.totalDefence;
+    },
+    applyAttack(attacker, defender, generalHealth) {
+      let damage = 0;
+      if (this.checkHitOrBlock(attacker, defender)) {
+
         // if attack overpowers defence, calc attack received
-        attack += attacker.totalAttack - defender.totalDefence;
-        console.log("HIT", attacker.totalAttack, "VS", defender.totalDefence, " general -", attack);
+        damage = attacker.totalAttack - defender.totalDefence;
+        generalHealth -= damage;
+        console.log("ATTACK HIT", attacker.name, attacker.totalAttack, "VS", defender.name, defender.totalDefence,
+          " BREAKTHROUGH ::", generalHealth, " damage taken -", damage);
+
+        // check if general health < 0
+        this.checkGeneralHealth(generalHealth);
       } else {
         // attack was blocked
-        console.log("BLOCKED", defender.totalDefence, "VS", attacker.totalAttack);
+        console.log("ATTACK BLOCKED", defender.name, defender.totalDefence, "VS", attacker.name, attacker.totalAttack);
+      }
+      return generalHealth;
+    },
+    checkGeneralHealth(generalHealth) {
+      if (generalHealth <= 0) {
+        console.log("GENERAL DIED!!")
+        this.gameOver = true;
       }
     },
-    getAllArrayValues() {
+    endTurn() {
+      this.turnCounter++;
+      console.log(this.turnCounter);
+
+      let playerGeneralHealth = this.playerGeneral[0].health;
+      let enemyGeneralHealth = this.enemyGeneral[0].health;
+
+      console.log("PLAYER general:", this.playerGeneral[0].name);
+      console.log("GENERAL HEALTH", playerGeneralHealth);
+
+      console.log("ENEMY general:", this.enemyGeneral[0].name);
+      console.log("GENERAL HEALTH", enemyGeneralHealth);
+      
       // enemy = attacker (attacks first)
-      const sum_enemy_left = this.calcAttackDefenceSum(this.enemy_leftFlank);
-      const sum_enemy_center = this.calcAttackDefenceSum(this.enemy_centerFlank);
-      const sum_enemy_right = this.calcAttackDefenceSum(this.enemy_rightFlank);
+      const sum_enemy_left = this.calcFlank(this.enemyLeftFlank);
+      const sum_player_left = this.calcFlank(this.playerLeftFlank);
 
-      const sum_player_left = this.calcAttackDefenceSum(this.player_leftFlank);
-      const sum_player_center = this.calcAttackDefenceSum(this.player_centerFlank);
-      const sum_player_right = this.calcAttackDefenceSum(this.player_rightFlank);
+      const sum_enemy_center = this.calcFlank(this.enemyCenterFlank);
+      const sum_player_center = this.calcFlank(this.playerCenterFlank);
 
-      console.log("ENEMY general", this.enemy_general);
-      // check enemy left
-      console.log("ENEMY left", this.enemy_leftFlank, sum_enemy_left);
-      this.checkHitOrDefend(sum_enemy_left, sum_player_left);
-      // check enemy center
-      console.log("ENEMY center", this.enemy_centerFlank, sum_enemy_center);
-      this.checkHitOrDefend(sum_enemy_center, sum_player_center);
-      // check enemy right
-      console.log("ENEMY right", this.enemy_rightFlank, sum_enemy_right);
-      this.checkHitOrDefend(sum_enemy_right, sum_player_right);
+      // enemy attack left
+      console.log("ENEMY left", this.enemyLeftFlank, sum_enemy_left);
+      if (this.checkHitOrBlock(sum_enemy_left, sum_player_left)) {
+        playerGeneralHealth = this.applyAttack(sum_enemy_left, sum_player_left, playerGeneralHealth);
+      }
+      if (this.checkHitOrBlock(sum_player_left, sum_enemy_left)) {
+        enemyGeneralHealth = this.applyAttack(sum_player_left, sum_enemy_left, enemyGeneralHealth);
+      }
 
-      console.log("PLAYER general", this.player_general);
-      // check player left
-      console.log("PLAYER left", this.player_leftFlank, sum_player_left);
-      this.checkHitOrDefend(sum_player_left, sum_enemy_left);
-      // check player center
-      console.log("PLAYER center", this.player_centerFlank, sum_player_center);
-      this.checkHitOrDefend(sum_player_center, sum_enemy_center);
-      // check player right
-      console.log("PLAYER right", this.player_rightFlank, sum_player_right);
-      this.checkHitOrDefend(sum_player_right, sum_enemy_right);
-    },
+      // general health should update after applyAttack
+      console.log("GENERAL HEALTH after attack left", playerGeneralHealth);
+      console.log("ENEMY HEALTH after attack left", enemyGeneralHealth);
+
+      // enemy attack center
+      console.log("ENEMY center", this.enemyCenterFlank, sum_enemy_center);
+      if (this.checkHitOrBlock(sum_enemy_center, sum_player_center)) {
+        playerGeneralHealth = this.applyAttack(sum_enemy_center, sum_player_center, playerGeneralHealth);
+      }
+      if (this.checkHitOrBlock(sum_player_center, sum_enemy_center)) {
+        enemyGeneralHealth = this.applyAttack(sum_player_center, sum_enemy_center, enemyGeneralHealth);
+      }
+
+      // general health should update after applyAttack
+      console.log("GENERAL HEALTH after attack center", playerGeneralHealth);
+      console.log("ENEMY HEALTH after attack left", enemyGeneralHealth);
+
+      // Update player_general health property with the calculated playerGeneralHealth
+      this.playerGeneral[0].health = playerGeneralHealth;
+      this.enemyGeneral[0].health = enemyGeneralHealth;
+    }
   },
   mounted() {
     this.userId = this.$route.params.userId;
